@@ -46,7 +46,9 @@ int Matrixd_Cmd(ClientData cdata, Tcl_Interp* interp, int objc, Tcl_Obj* const o
 
 int Madd_Cmd(ClientData cdata, Tcl_Interp* interp, int objc, Tcl_Obj* const objv[])
 {
-	
+	if (objc != 2) return TCL_ERROR;
+	if (Tcl_ConvertToType(interp, objv[0], &Matrix_Tcl_ObjType) != TCL_OK) return TCL_ERROR;
+	if (Tcl_ConvertToType(interp, objv[1], &Matrix_Tcl_ObjType) != TCL_OK) return TCL_ERROR;
 	return TCL_OK;
 }
 

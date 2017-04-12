@@ -25,6 +25,7 @@ void Matrix_DupInternalRepProc(Tcl_Obj* srcPtr, Tcl_Obj* dupPtr)
 {
 	Eigen::MatrixXd* mat = new (std::nothrow) Eigen::MatrixXd(*((Eigen::MatrixXd*)srcPtr->internalRep.otherValuePtr));
 	dupPtr->internalRep.otherValuePtr = mat;
+	dupPtr->typePtr = srcPtr->typePtr;
 }
 
 void Matrix_UpdateStringProc(Tcl_Obj* objPtr)
@@ -51,6 +52,7 @@ void Matrix_UpdateStringProc(Tcl_Obj* objPtr)
 
 int Matrix_SetFromAnyProc(Tcl_Interp* interp, Tcl_Obj* objPtr)
 {
+	
 	objPtr->typePtr = &Matrix_Tcl_ObjType;
 	return TCL_OK;
 }
