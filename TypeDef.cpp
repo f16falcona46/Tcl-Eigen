@@ -51,5 +51,6 @@ void Matrix_UpdateStringProc(Tcl_Obj* objPtr)
 
 int Matrix_SetFromAnyProc(Tcl_Interp* interp, Tcl_Obj* objPtr)
 {
+	objPtr->typePtr = &Matrix_Tcl_ObjType;
 	return TCL_OK;
 }
