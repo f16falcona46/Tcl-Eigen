@@ -1,6 +1,6 @@
 CC=gcc
 CXX=g++
-LINKS:=-ltclstub86
+LINKS:=
 OBJS=Eigen.o Cmds.o TypeDef.o
 EXENAME=Eigen
 FLAGS+=-DUSE_TCL_STUBS
@@ -24,6 +24,7 @@ ifeq ($(OS),Windows_NT)
 	endif
 	EXENAME:=$(EXENAME).dll
 	FLAGS+= -IC:\Tcl\include -LC:\Tcl\lib
+	LINKS+=-ltclstub86
 else
 	UNAME_S := $(shell uname -s)
 	ifeq ($(UNAME_S),Linux)
@@ -51,6 +52,8 @@ else
 		BINARY_ARCH=arm
 	endif
 	EXENAME:=$(EXENAME).so
+	FLAGS+=-I/usr/include/tcl
+	LINKS+=-ltclstub8.6
 endif
 
 #You may need -lfltk_forms -lfltk_images -lfltk_gl

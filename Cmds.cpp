@@ -20,6 +20,13 @@ int Matrix_RegisterCmds(Tcl_Interp* interp)
 
 int Matrixd_Cmd(ClientData cdata, Tcl_Interp* interp, int objc, Tcl_Obj* const objv[])
 {
+	Tcl_Obj* obj = Tcl_NewObj();
+	obj->typePtr = &Matrix_Tcl_ObjType;
+	Eigen::MatrixXd* mat = new Eigen::MatrixXd();
+	*mat = Eigen::MatrixXd::Random(3,3);
+	obj->internalRep.otherValuePtr = mat;
+	Tcl_InvalidateStringRep(obj);
+	/*
 	try {
 		if (objc != 1) return TCL_ERROR;
 		std::vector<Tcl_Obj*> mat_rows;
@@ -41,6 +48,8 @@ int Matrixd_Cmd(ClientData cdata, Tcl_Interp* interp, int objc, Tcl_Obj* const o
 	catch (const std::exception& e) {
 		return TCL_ERROR;
 	}
+	*/
+	Tcl_SetObjResult(interp, obj);
 	return TCL_OK;
 }
 

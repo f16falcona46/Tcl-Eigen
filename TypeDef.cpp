@@ -4,6 +4,8 @@
 #include <string>
 #include <cstdlib>
 
+#include <iostream>
+
 Tcl_ObjType Matrix_Tcl_ObjType;
 
 void Matrix_RegisterObjType()
@@ -31,6 +33,7 @@ void Matrix_DupInternalRepProc(Tcl_Obj* srcPtr, Tcl_Obj* dupPtr)
 void Matrix_UpdateStringProc(Tcl_Obj* objPtr)
 {
 	const Eigen::MatrixXd& mat = *(Eigen::MatrixXd*)objPtr->internalRep.otherValuePtr;
+	std::cout << mat << std::endl;
 	std::stringstream ss;
 	ss << "{";
 	for (int i = 0; i < mat.rows(); ++i) {
@@ -45,9 +48,9 @@ void Matrix_UpdateStringProc(Tcl_Obj* objPtr)
 	ss << "}";
 	const std::string& s = ss.str();
 	char* buf = Tcl_Alloc(s.size() + 1);
-	if (buf) std::strcpy(buf, &s[0]);
+	std::strcpy(buf, s.c_str());
 	objPtr->bytes = buf;
-	objPtr->length = s.size() + 1;
+	objPtr->length = s.size();
 }
 
 int Matrix_SetFromAnyProc(Tcl_Interp* interp, Tcl_Obj* objPtr)

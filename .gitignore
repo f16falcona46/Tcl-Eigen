@@ -1,5 +1,6 @@
-*.gch
+*.gc
 *.o
 .*.swp
 *.exe
 *.dll
+*.so
